@@ -11,3 +11,11 @@ const reportWebVitals = onPerfEntry => {
 };
 
 export default reportWebVitals;
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    const swUrl = process.env.PUBLIC_URL ? `${process.env.PUBLIC_URL}/sw.js` : '/sw.js';
+    navigator.serviceWorker.register(swUrl).catch(() => {
+    });
+  });
+}

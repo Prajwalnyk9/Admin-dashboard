@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import DashboardLayout from "./pages/DashboardLayout";
+import UsersPage from "./features/users/UsersPage";
+import PostsPage from "./features/posts/PostsPage";
+import TodosPage from "./features/todos/TodosPage";
+import AlbumsPage from "./features/albums/AlbumsPage";
+import HomePage from "./pages/HomePage";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
+  // Check if the user is logged in by looking for a flag in localStorage.
+  // If not logged in, we'll redirect them to the login page.
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Router>
+      <Routes>
+        
+        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/*"
+          element={isLoggedIn ? <DashboardLayout /> : <Navigate to="/login" />}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Route index element={<HomePage />} />
+          <Route path="users" element={<UsersPage />} />
+          <Route path="posts" element={<PostsPage />} />
+          <Route path="albums" element={<AlbumsPage />} />
+          <Route path="todos" element={<TodosPage />} />
+          <Route path="*" element={<ErrorPage message="Page not found." />} />
+        </Route>
+        <Route path="*" element={<ErrorPage message="Page not found." />} />
+      </Routes>
+    </Router>
   );
 }
 

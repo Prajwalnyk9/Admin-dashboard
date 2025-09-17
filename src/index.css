@@ -1,3 +1,127 @@
+/* UsersPage styles */
+.users-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px;
+}
+.users-title {
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.users-search-row {
+  justify-content: center;
+}
+.users-search-input {
+  max-width: 320px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+.users-table-scroll {
+  overflow-x: auto;
+  margin-bottom: 24px;
+}
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 400px;
+}
+.users-table thead {
+  background: #f3f4f6;
+}
+.users-table-row {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.users-table-row.selected {
+  background: #e0e7ff;
+}
+.users-table-row:not(.selected) {
+  background: white;
+}
+.users-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  padding: 24px;
+  margin-top: 24px;
+}
+.users-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.users-card-btn-row {
+  gap: 8px;
+}
+.users-card-btn {
+  padding: 6px 18px;
+  border-radius: 6px;
+}
+.users-card-content {
+  margin-top: 18px;
+}
+.users-list {
+  padding-left: 0;
+  list-style: none;
+}
+.users-list-item {
+  margin-bottom: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f9fafb;
+}
+.users-list-item-todo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.users-pill {
+  padding: 2px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.users-pill.completed {
+  background: #d1fae5;
+  color: #065f46;
+}
+.users-pill.pending {
+  background: #fee2e2;
+  color: #991b1b;
+}
+/* ErrorPage styles moved from ErrorPage.css */
+.error-page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.error-page-title {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.error-page-message {
+  font-size: 20px;
+  margin-bottom: 32px;
+}
+
+.error-page-btn {
+  padding: 10px 24px;
+  background: #721c24;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,3 +135,278 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Simple utility styles (no framework) */
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background: #222;
+  color: #fff;
+  padding: 16px;
+}
+
+.sidebar h2 {
+  margin: 0 0 12px;
+}
+
+.sidebar a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 8px 0;
+}
+
+.sidebar a:hover {
+  text-decoration: underline;
+}
+
+.main {
+  flex: 1;
+  background: #f5f5f5;
+  padding: 16px;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .app-shell { flex-direction: column; }
+  .sidebar { width: 100%; position: sticky; top: 0; z-index: 10; }
+}
+
+.btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn.secondary {
+  background: #6b7280;
+}
+
+.btn.danger {
+  background: #dc2626;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-link {
+  background: transparent;
+  color: #2563eb;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.form {
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  max-width: 360px;
+  width: 100%;
+}
+
+.form h2 { margin-top: 0; }
+
+.input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+
+.centered {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.space-between { justify-content: space-between; }
+.mt-8 { margin-top: 8px; }
+.mt-12 { margin-top: 12px; }
+.mt-16 { margin-top: 16px; }
+.mb-8 { margin-bottom: 8px; }
+.mb-12 { margin-bottom: 12px; }
+.mb-16 { margin-bottom: 16px; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+th, td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+thead th {
+  background: #f3f4f6;
+}
+
+tbody tr:hover { background: #fafafa; }
+
+.table-actions { text-align: right; }
+
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.pill {
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: #e5e7eb;
+}
+
+/* Todos list styling */
+.todo-toolbar { display: flex; gap: 8px; flex-wrap: wrap; }
+.todo-list { list-style: none; padding: 0; margin: 0; }
+.todo-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.todo-item + .todo-item { margin-top: 8px; }
+.todo-title { flex: 1; }
+.todo-completed { color: #16a34a; }
+.todo-pending { color: #dc2626; }
+
+.carousel {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px 1fr 48px;
+  align-items: center;
+  gap: 8px;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.carousel-frame {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  background: #fff;
+}
+
+.carousel-img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
+.carousel-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.carousel-btn:hover { background: rgba(0,0,0,0.8); }
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  background: rgba(255,255,255,0.6);
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #9ca3af;
+}
+.carousel-dot.active { background: #2563eb; }
+
+.error { color: #dc2626; }
+.muted { color: #6b7280; font-size: 14px; }
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.photo-item img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Modal styles */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal {
+  background: #fff;
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.modal img { max-width: 80vw; max-height: 70vh; object-fit: contain; display: block; margin: 0 auto; }
+.modal .row { justify-content: space-between; }
+
+/* Album header inline preview */
+.album-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.album-preview { display: flex; align-items: center; gap: 8px; }
+.album-preview-frame { border-radius: 8px; overflow: hidden; width: 520px; max-width: 100%; box-shadow: 0 6px 16px rgba(0,0,0,0.08); }
+.album-preview-img { width: 100%; height: 320px; object-fit: cover; display: block; }
+.album-image { display: flex; align-items: center; justify-content: center; }
+
+.thumbs-row { display: flex; gap: 8px; overflow-x: auto; padding-top: 8px; }
+.thumbs-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 8px; max-height: 220px; overflow-y: auto; padding-top: 8px; }
+.thumb { width: 56px; height: 56px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid transparent; }
+.thumbs-wrap .thumb { width: 100%; height: 72px; }
+
+/* Simple loader */
+.loader-center { display: grid; place-items: center; padding: 16px; }
+.spinner { width: 28px; height: 28px; border: 3px solid #e5e7eb; border-top-color: #2563eb; border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.thumb.active { border-color: #2563eb; }
