@@ -1,19 +1,18 @@
-import { Outlet, Link, useNavigate } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
+import { useAuth } from "../components/AuthContext";
+import { useState } from "react";
 
 // This component provides the main layout for the dashboard, including the sidebar and main content area.
 function DashboardLayout() {
-  const navigate = useNavigate();
-
-  // When the user clicks logout, clear everything from localStorage and send them to the login page.
-  const logout = () => {
-    localStorage.clear();
-    navigate("/login");
-  };
+  const { logout } = useAuth();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <div className="app-shell">
-      {/* Sidebar with navigation links */}
-      <aside className="sidebar">
+      <button className="sidebar-toggle" onClick={() => setSidebarOpen((v) => !v)}>
+        {sidebarOpen ? '✖' : '☰'}
+      </button>
+      <aside className={`sidebar${sidebarOpen ? ' open' : ''}`} onClick={() => setSidebarOpen(false)}>
         <h2 style={{ textTransform: 'uppercase', letterSpacing: 1 }}>Admin Dashboard</h2>
         <nav>
           <Link to="/" style={{ textTransform: 'uppercase' }}>Home</Link>
@@ -24,7 +23,6 @@ function DashboardLayout() {
         </nav>
         <button onClick={logout} className="btn danger mt-16">Logout</button>
       </aside>
-      {/* Main content area where the selected page will be rendered */}
       <main className="main">
         <Outlet />
       </main>

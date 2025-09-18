@@ -147,6 +147,23 @@ code {
   background: #222;
   color: #fff;
   padding: 16px;
+  transition: left 0.3s, transform 0.3s;
+  z-index: 100;
+}
+
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 200;
+  background: #222;
+  color: #fff;
+  border: none;
+  font-size: 2rem;
+  border-radius: 6px;
+  padding: 4px 12px;
+  cursor: pointer;
 }
 
 .sidebar h2 {
@@ -171,9 +188,28 @@ code {
 }
 
 /* Responsive layout */
-@media (max-width: 768px) {
-  .app-shell { flex-direction: column; }
-  .sidebar { width: 100%; position: sticky; top: 0; z-index: 10; }
+@media (max-width: 900px) {
+  .sidebar-toggle {
+    display: block;
+  }
+  .sidebar {
+    position: fixed;
+    left: -260px;
+    top: 0;
+    height: 100vh;
+    width: 240px;
+    max-width: 80vw;
+    box-shadow: 2px 0 16px rgba(0,0,0,0.12);
+    transform: translateX(0);
+    transition: left 0.3s, transform 0.3s;
+  }
+  .sidebar.open {
+    left: 0;
+    transform: translateX(0);
+  }
+  .app-shell {
+    flex-direction: column;
+  }
 }
 
 .btn {

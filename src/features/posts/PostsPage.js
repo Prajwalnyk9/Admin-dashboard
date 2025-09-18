@@ -8,6 +8,7 @@ function PostsPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [query, setQuery] = useState("");
+  const [totalCount, setTotalCount] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -17,11 +18,14 @@ function PostsPage() {
     if (cached) {
       try { setPosts(JSON.parse(cached)); } catch {}
     }
-      fetch(`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=10`)
-      .then((res) => res.json())
-      .then((data) => {
+    fetch(`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=10`, { method: 'GET' })
+      .then(async (res) => {
+        const data = await res.json();
         setPosts(data);
         localStorage.setItem(key, JSON.stringify(data));
+        // Try to get total count from headers (JSONPlaceholder doesn't support it, fallback to 100)
+        const total = res.headers.get('x-total-count');
+        setTotalCount(total ? parseInt(total, 10) : 100);
       })
       .catch(() => setError("Failed to load posts"))
       .finally(() => setLoading(false));
@@ -46,7 +50,7 @@ function PostsPage() {
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '16px' }}>
       <h2 className="mb-16" style={{ textAlign: 'center', fontWeight: 700, textTransform: 'uppercase' }}>Posts</h2>
-      <div className="row mb-16" style={{ flexWrap: 'wrap', gap: 12, justifyContent: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
         <input
           className="input"
           placeholder="Search by title"
@@ -54,11 +58,34 @@ function PostsPage() {
           onChange={(e) => setQuery(e.target.value)}
           style={{ maxWidth: 320, width: '100%', padding: 10, borderRadius: 6, border: '1px solid #ddd' }}
         />
+      </div>
+      <div className="row mb-8" style={{ flexWrap: 'wrap', gap: 12, justifyContent: 'center' }}>
         <div className="row" style={{ gap: 8, alignItems: 'center' }}>
-          <button className="btn secondary" style={{ padding: '6px 18px', borderRadius: 6 }} onClick={() => setPage((p) => Math.max(1, p - 1))}>Prev</button>
+          <button
+            className="btn secondary"
+            style={{ padding: '6px 18px', borderRadius: 6 }}
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+          >
+            Prev
+          </button>
           <span className="pill" style={{ fontWeight: 500, fontSize: 15 }}>Page {page}</span>
-          <button className="btn" style={{ padding: '6px 18px', borderRadius: 6 }} onClick={() => setPage((p) => p + 1)}>Next</button>
+          <button
+            className="btn"
+            style={{ padding: '6px 18px', borderRadius: 6 }}
+            onClick={() => setPage((p) => p + 1)}
+            disabled={totalCount !== null && page >= Math.ceil(totalCount / 10)}
+          >
+            Next
+          </button>
         </div>
+      </div>
+      <div style={{ textAlign: 'center', marginBottom: 16, fontWeight: 500 }}>
+        {totalCount !== null && (
+          <>
+            Showing {posts.length} of {totalCount} posts
+          </>
+        )}
       </div>
       {loading && <p className="muted" style={{ textAlign: 'center' }}>Loading posts…</p>}
       {error && <p className="error" style={{ textAlign: 'center' }}>{error}</p>}

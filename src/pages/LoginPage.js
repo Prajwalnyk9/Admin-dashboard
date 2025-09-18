@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../components/AuthContext";
 
 // This is the login page. It lets users log in with their email or mobile number and a password.
 function LoginPage() {
-  // Store the values the user types into the form fields.
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   // Check if the password is strong enough: at least 1 uppercase, 1 number, 1 special character, and 6+ characters.
   const validatePassword = (pwd) => {
@@ -34,9 +35,8 @@ function LoginPage() {
       return;
     }
     
-  // If everything is valid, save the login state and go to the dashboard.
-    localStorage.setItem("isLoggedIn", "true");
-    localStorage.setItem("user", JSON.stringify({ id: identifier }));
+    // If everything is valid, save the login state and go to the dashboard.
+    login({ id: identifier });
     navigate("/");
   };
 

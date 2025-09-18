@@ -7,16 +7,13 @@ import TodosPage from "./features/todos/TodosPage";
 import AlbumsPage from "./features/albums/AlbumsPage";
 import HomePage from "./pages/HomePage";
 import ErrorPage from "./pages/ErrorPage";
+import { useAuth } from "./components/AuthContext";
 
 function App() {
-  // Check if the user is logged in by looking for a flag in localStorage.
-  // If not logged in, we'll redirect them to the login page.
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
-
+  const { isLoggedIn } = useAuth();
   return (
     <Router>
       <Routes>
-        
         <Route path="/login" element={<LoginPage />} />
         <Route
           path="/*"
