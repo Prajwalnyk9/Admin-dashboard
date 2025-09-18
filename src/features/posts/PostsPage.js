@@ -4,6 +4,7 @@ function PostsPage() {
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
   const [comments, setComments] = useState([]);
+  const [commentsLoading, setCommentsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -35,12 +36,22 @@ function PostsPage() {
     if (selectedPost === postId) {
       setSelectedPost(null);
       setComments([]);
+      setCommentsLoading(false);
       return;
     }
-      fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`)
-      .then((res) => res.json())
-      .then(setComments);
+    setComments([]);
+    setCommentsLoading(true);
     setSelectedPost(postId);
+    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`)
+      .then((res) => res.json())
+      .then((data) => {
+        setComments(data);
+        setCommentsLoading(false);
+      })
+      .catch(() => {
+        setComments([]);
+        setCommentsLoading(false);
+      });
   };
 
   const filtered = posts.filter((p) =>
@@ -98,8 +109,9 @@ function PostsPage() {
           </button>
           {selectedPost === p.id && (
             <ul className="mt-12" style={{ marginTop: 16, paddingLeft: 0, listStyle: 'none', background: '#f9fafb', borderRadius: 8, padding: 12 }}>
-              {comments.length === 0 && <li style={{ color: '#6b7280' }}>No comments.</li>}
-              {comments.map((c) => (
+              {commentsLoading && <li style={{ color: '#6b7280' }}>Loading comments…</li>}
+              {!commentsLoading && comments.length === 0 && <li style={{ color: '#6b7280' }}>No comments.</li>}
+              {!commentsLoading && comments.map((c) => (
                 <li key={c.id} style={{ marginBottom: 10, color: '#374151', fontSize: 15 }}>💬 {c.body}</li>
               ))}
             </ul>
